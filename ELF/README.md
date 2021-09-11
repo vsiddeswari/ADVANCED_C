@@ -105,7 +105,7 @@ p_flags	: Segment-dependent flags (position for 32-bit structure).
 
 p_align	: 0 and 1 specify no alignment. Otherwise should be a positive, integral power of 2, with p_vaddr equating p_offset modulus p_align.
 
-End of Program Header (size).
+    End of Program Header (size).
 
 
 
