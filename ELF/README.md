@@ -27,35 +27,62 @@ All ELF object files start with the ELF header. It is in binary but has the foll
 # define EI_NIDENT 16
  
 typedef struct {
+
 unsigned char
+
 e_ident[EI_NIDENT];
+
 Elf64_Half e_type;
+
 Elf64_Half e_machine;
+
 Elf64_Word e_version;
+
 Elf64_Addr e_entry;
+
 Elf64_Off e_phoff;
+
 Elf64_Off e_shoff;
+
 Elf64_Word e_flags;
+
 Elf64_Half e_ehsize;
+
 Elf64_Half e_phentsize;
+
 Elf64_Half e_phnum;
+
 Elf64_Half e_shentsize;
+
 Elf64_Half e_shnum;
+
 Elf64_Half e_shstrndx;
+
 } Elf64_Ehdr;
 
 
 e_ident    : This variable marks the file as an ELF object file and provides information about the object file.
+
 e_type     : This member determines the object file type.
+
 e_machine  : This member specifies the architecture for which this ELF is compiled.
+
 e_version  : This member provides information about the version of the ELF object file.
+
 e_entry    : This is the entry point or the start address of the program.
+
 e_phoff    : This member provides offset from the ELF header at which the program header is present.
+
 e_shoff    : This member provides offset from the ELF header at which the section header is present.
+
 e_flags    : This member holds processor specific tags.
+
 e_ehsize   : This member holds the ELF header size in bytes.
+
 e_phentsize: This member holds the size in bytes of one entry in the file’s program header table.
+
 e_phnum    : This member holds the number of entries in the program header table.
+
 E_shentsize: This member holds a section header’s size in bytes.
 
 
