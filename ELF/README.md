@@ -84,7 +84,7 @@ e_phnum    : This member holds the number of entries in the program header table
 E_shentsize: This member holds a section header’s size in bytes.
 
 
-PROGRAM HEADER:
+                               PROGRAM HEADER
 
 The program header table tells the system how to create a process image. It is found at file offset e_phoff, and consists of e_phnum entries, each with size e_phentsize. The layout is slightly different in 32-bit ELF vs 64-bit ELF, because the p_flags are in a different structure location for alignment reasons.
 
@@ -109,7 +109,7 @@ End of Program Header (size).
 
 
 
-SECTION HEADER:
+                                             SECTION HEADER
 
 sh_name	    :An offset to a string in the .shstrtab section that represents the name of this section.
 
