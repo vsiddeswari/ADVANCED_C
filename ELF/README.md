@@ -1,4 +1,4 @@
-FILE LAYOUT:
+                                        FILE LAYOUT
 
 Each ELF file is made up of one ELF header, followed by file data. The data can include:
 
@@ -8,8 +8,6 @@ Data referred to by entries in the program header table or section header table
 
 The segments contain information that is needed for run time execution of the file, while sections contain important data for linking and relocation. Any byte in the entire file can be owned by one section at most, and orphan bytes can occur which are unowned by any section.
 
-
-
 00000000 7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 |.ELF............|
 
 00000010 02 00 3e 00 01 00 00 00 c5 48 40 00 00 00 00 00 |..>......H@.....|
@@ -18,13 +16,13 @@ Example hexdump of ELF file header[4]
 
 
 
-FILE HEADER:
+                                         FILE HEADER
 
 
 
 All ELF object files start with the ELF header. It is in binary but has the following data structure format:
 
-# define EI_NIDENT 16
+#define EI_NIDENT  16
  
 typedef struct {
 
