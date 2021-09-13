@@ -76,7 +76,9 @@ Program Headers:
 
 
 
-                 readelf -S a.out
+                readelf -S a.out
+
+
 There are 31 section headers, starting at offset 0x3978:
 
 Section Headers:
