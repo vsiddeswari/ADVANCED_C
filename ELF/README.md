@@ -84,6 +84,8 @@ e_phnum    : This member holds the number of entries in the program header table
 E_shentsize: This member holds a section header’s size in bytes.
 
 
+
+
                                PROGRAM HEADER
 
 The program header table tells the system how to create a process image. It is found at file offset e_phoff, and consists of e_phnum entries, each with size e_phentsize. The layout is slightly different in 32-bit ELF vs 64-bit ELF, because the p_flags are in a different structure location for alignment reasons.
@@ -106,29 +108,44 @@ p_flags	: Segment-dependent flags (position for 32-bit structure).
 p_align	: 0 and 1 specify no alignment. Otherwise should be a positive, integral power of 2, with p_vaddr equating p_offset modulus p_align.
 
     End of Program Header (size).
+    
+        Commands to see program headers:
+
+->  dumpelf
+->  elfls -S /bin/ps
+->  eu-readelf -program-headers /bin/ps
 
 
 
                                              SECTION HEADER
 
-sh_name	    :An offset to a string in the .shstrtab section that represents the name of this section.
+Sections can be found in an ELF binary after the GNU C compiler transformed C code into assembly, followed
+by the GNU assembler, which creates objects of it.
 
-sh_type	    :Identifies the type of this header.
+A segment can have 0 or more sections. For executable files there are four main sections: .text, .data,
+.rodata, and .bss. Each of these sections is loaded with different access rights, which can be seen with
+readelf -S.
 
-sh_flags     :Identifies the attributes of the section.
 
-sh_addr      :Virtual address of the section in memory, for sections that are loaded.
+.text:
 
-sh_offset    :Offset of the section in the file image.
+Contains executable code. It will be packed into a segment with read and execute access rights. It is only
+loaded once, as the contents will not change. This can be seen with the objdump utility.
 
-sh_size	    :Size in bytes of the section in the file image. May be 0.
 
-sh_link	    :Contains the section index of an associated section. This field is used for several purposes, depending on the type of section.
+.data:
+Initialized data with read/write access rights.
 
-sh_info      :Contains extra information about the section. This field is used for several purposes, depending on the type of section.
+.rodata:
+Initialized data, with read access rights (only =A)
 
-sh_addralign :Contains the required alignment of the section. This field must be a power of two.
+.bss:
+Uninitialized data, with read/write access rights (=WA)
 
-sh_entsize   :Contains the size, in bytes, of each entry, for sections that contain fixed-size entries. Otherwise, this field contains zero.
+    Commands to see section headers:
 
-End of Section Header (size)
+->  dumpelf
+->  elfls -p /bin/ps
+->  eu-readelf -section-headers /bin/ps
+->  readelf -S /bin/ps
+->  objdump -h /bin/ps
