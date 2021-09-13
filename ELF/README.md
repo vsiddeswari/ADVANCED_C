@@ -106,13 +106,14 @@ p_memsz	: Size in bytes of the segment in memory. May be 0.
 p_flags	: Segment-dependent flags (position for 32-bit structure).
 
 p_align	: 0 and 1 specify no alignment. Otherwise should be a positive, integral power of 2, with p_vaddr equating p_offset modulus p_align.
-
-    End of Program Header (size).
+ End of Program Header (size).
     
         Commands to see program headers:
 
 ->  dumpelf
+
 ->  elfls -S /bin/ps
+
 ->  eu-readelf -program-headers /bin/ps
 
 
@@ -145,7 +146,11 @@ Uninitialized data, with read/write access rights (=WA)
     Commands to see section headers:
 
 ->  dumpelf
+
 ->  elfls -p /bin/ps
+
 ->  eu-readelf -section-headers /bin/ps
+
 ->  readelf -S /bin/ps
+
 ->  objdump -h /bin/ps
