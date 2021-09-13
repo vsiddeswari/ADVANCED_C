@@ -1,4 +1,4 @@
-                                        FILE LAYOUT
+                                        EXUCUTABLE AND  LINKABLE FILE(ELF)
 
 Each ELF file is made up of one ELF header, followed by file data. The data can include:
 
