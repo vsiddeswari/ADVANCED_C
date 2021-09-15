@@ -123,6 +123,8 @@ p_align	: 0 and 1 specify no alignment. Otherwise should be a positive, integral
 Sections can be found in an ELF binary after the GNU C compiler transformed C code into assembly, followed
 by the GNU assembler, which creates objects of it.
 
+
+
 A segment can have 0 or more sections. For executable files there are four main sections: .text, .data,
 .rodata, and .bss. Each of these sections is loaded with different access rights, which can be seen with
 readelf -S.
