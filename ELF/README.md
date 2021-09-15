@@ -1,4 +1,4 @@
-                                        EXUCUTABLE AND  LINKABLE FILE(ELF)
+<h1>EXUCUTABLE AND  LINKABLE FILE(ELF)</h1>
 
 Each ELF file is made up of one ELF header, followed by file data. The data can include:
 
@@ -15,8 +15,7 @@ The segments contain information that is needed for run time execution of the fi
 Example hexdump of ELF file header[4] 
 
 
-
-                                         FILE HEADER
+<h2>FILE HEADER</h2>
 
 
 
@@ -57,7 +56,9 @@ Elf64_Half e_shnum;
 Elf64_Half e_shstrndx;
 
 } Elf64_Ehdr;
-
+<p align="center">
+<img https://github.com/vsiddeswari/ADVANCED_C/blob/9e151ef6a6ff770156f250cd5caf5b1af194524d/figures/ELF%20Header.jpg="pic_trulli.jpg">
+</p>
 
 e_ident    : This variable marks the file as an ELF object file and provides information about the object file.
 
@@ -86,7 +87,7 @@ E_shentsize: This member holds a section header’s size in bytes.
 
 
 
-                               PROGRAM HEADER
+<h3>PROGRAM HEADER</h3>
 
 The program header table tells the system how to create a process image. It is found at file offset e_phoff, and consists of e_phnum entries, each with size e_phentsize. The layout is slightly different in 32-bit ELF vs 64-bit ELF, because the p_flags are in a different structure location for alignment reasons.
 
@@ -117,8 +118,7 @@ p_align	: 0 and 1 specify no alignment. Otherwise should be a positive, integral
 ->  eu-readelf -program-headers /bin/ps
 
 
-
-                                             SECTION HEADER
+<h4>SECTION HEADER</h4>
 
 Sections can be found in an ELF binary after the GNU C compiler transformed C code into assembly, followed
 by the GNU assembler, which creates objects of it.
