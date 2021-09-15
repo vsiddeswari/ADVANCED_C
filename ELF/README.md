@@ -137,7 +137,7 @@ A segment can have 0 or more sections. For executable files there are four main 
 readelf -S.
 
 
-<p align="center"
+<p align="center">
 <img src="https://github.com/vsiddeswari/ADVANCED_C/blob/3aaf6b14b1b4650a46f0708cada2d83a13a3e5e4/figures/section%20header.png">
 </p>
 
