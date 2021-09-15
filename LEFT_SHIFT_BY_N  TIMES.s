@@ -1,3 +1,6 @@
+
+/*  LEFT SHIFT BY COUNT TIMES  */
+
 .global _start
 _start:
 	
