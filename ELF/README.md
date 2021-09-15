@@ -50,10 +50,79 @@ Application Binary Interface (ABI). This way the operating system and applicatio
 and functions are correctly forwarded. These two fields describe what ABI is used and the related version.
 In this case, the value is 00, which means no specific extension is used. The output shows this as System V.
 
-<b>ABI Version </b>
+<b>ABI Version :</b>
 
 ABI is short for Application Binary Interface and specifies a low-level interface between the operating
 system and a piece of executable code. When needed, a version for the ABI can be specified.
+
+
+<b>e_ident</b>
+
+This array of bytes specifies how to interpret the file, independent of the processor or the file's remaining
+contents.  Within this array everything is named by macros, which start with the prefix EI_ and may contain
+values which start with the prefix ELF.  The following macros are defined:
+
+EI_MAG0
+	The first byte of the magic number. It must be filled with ELFMAG0. (0: 0x7f)
+
+EI_MAG1
+	The second byte of the magic number. It must be filled with ELFMAG1. (1: 'E')
+
+EI_MAG2
+	The third byte of the magic number. It must be filled with ELFMAG2. (2: 'L')
+
+EI_MAG3
+	The fourth byte of the magic number. It must be filled with ELFMAG3. (3: 'F')
+
+<b>e_type:</b> 
+
+ This member of the structure identifies the object file type:
+
+ET_NONE  -  An unknown type
+ET_REL   -  A relocatable file
+ET_EXEC  -  A executable file
+ET_DYN   -  A shared object
+ET_CORE  -  A core file
+e_machine - This member specifies the required architecture for an individual file. For example,
+
+EM_NONE  - An unknown machine
+EM_M32   - AT&T WE 32100
+EM_386   - Intel 80386
+EM_IA_64 - Intel Pentium
+e_version - This member identifies the file version
+
+EV_NONE 0    - Invalid version
+EV_CURRENT  - Current version
+<b>e_entry:</b>
+
+This member gives the virtual address to which the system first transfers control, thus starting the process.
+If the file has no associated entry point, this member holds zero.
+e_phoff This member holds the program header table's file offset in bytes. If the file has no program header table, this member holds zero.
+
+<b>e_shoff:</b>
+
+This member holds the section header table's file offset in bytes.  If the file has no section header table,
+this member holds zero.
+
+<b>e_flags:</b>
+
+This member holds processor-specific flags associated with the file.  Flag names take the form 
+EF_`machine_flag'. Currently, no flags have been defined.
+
+<b>e_ehsize:</b>
+
+This member holds the ELF header's size in bytes.
+
+<b>e_phemtsize:</b>
+
+This member holds the size in bytes of one entry in the file's program header table; all entries are the same
+size.
+
+<b>e_phnum:</b>
+
+This member holds the number of entries in the program header table.  Thus the product of e_phentsize and
+e_phnum gives the table's size in bytes.  If a file has no program header, e_phnum holds the value zero.
+
 
 <h2>PROGRAM HEADER</h2>
 
@@ -82,35 +151,35 @@ typedef struct {
 	Elf64_Xword	p_align;
 } Elf64_Phdr;
 
-<b>p_type</b>
+<b>p_type:</b>
 
 This member tells what kind of segment this array element describes or how to interpret the array element's information. Type values and their meanings appear below.
 
-<b>p_offset</b>
+<b>p_offset:</b>
 
 This member gives the offset from the beginning of the file at which the first byte of the segment resides.
 
-<b>p_vaddr</b>
+<b>p_vaddr:</b>
 
 This member gives the virtual address at which the first byte of the segment resides in memory.
 
-<b>p_paddr</b>
+<b>p_paddr:</b>
 
 On systems for which physical addressing is relevant, this member is reserved for the segment's physical address. Because System V ignores physical addressing for application programs, this member has unspecified contents for executable files and shared objects.
 
-<b>p_filesz</b>
+<b>p_filesz:</b>
 
 This member gives the number of bytes in the file image of the segment; it may be zero.
 
-<b>p_memsz</b>
+<b>p_memsz:</b>
 
 This member gives the number of bytes in the memory image of the segment; it may be zero.
 
-<b>p_flags</b>
+<b>p_flags:</b>
 
 This member gives flags relevant to the segment. Defined flag values appear below.
 
-<b>p_align</b>
+<b>p_align:</b>
 
 As Program Loading'' describes in this chapter of the processor supplement, loadable process segments must have congruent values for p_vaddr and p_offset, modulo the page size. This member gives the value to which the segments are aligned in memory and in the file. Values 0 and 1 mean no alignment is required. Otherwise, p_align should be a positive, integral power of 2, and p_vaddr should equal p_offset, modulo p_align
     
@@ -143,87 +212,86 @@ readelf -S.
 
 
 
-<b>.text</b>
+<b><i>.text</i></b>
 
 Contains executable code. It will be packed into a segment with read and execute access rights. It is only
 loaded once, as the contents will not change. This can be seen with the objdump utility.
 
 
-<b>.data</b>
+<b><i>.data</i></b>
 
 Initialized data with read/write access rights.
 
-<b>.rodata<b/>
+<b><i>.rodata</i><b/>
 
 Initialized data, with read access rights (only =A)
 
-<b>.bss</b>
+<b><i>.bss</i></b>
 
 Uninitialized data, with read/write access rights (=WA)
 
 
-<b>.comment</b>
+<b><i>.comment</i></b>
 
 This section holds version control information. This section is of type SHT_PROGHITS.No attribute types are used.
 
-<b>.ctors</b>
+<b><i>.ctors</i></b>
 
 This section holds initialized pointers to the C++ constructor functions. This section is of type SHT_PROGBITS.
 The attribute types are SHF_ALLOC and SHF_WRITE.
 
-<b>.data1</b>
+<b><i>.data1</i></b>
 
 This section holds initialized data that contribute to the program's memory image. This section is of type
 SHT_PROGBITS. The attribute types are SHF_ALLOC and SHF_WRITE.
 
-<b>.debug</b>
+<b><i>.debug</i></b>
 
 This section holds information for symbolic debugging. The contents are unspecified. This section is of type
 SHT_PROGBITS.  No attribute types are used.
 
-<b>.dtors</b>
+<b><i>.dtors</i></b>
 
 This section holds initialized pointers to the C++ destructor functions. This section is of type SHT_PROGBITS.
 The attribute types are SHF_ALLOC and SHF_WRITE.
 
-<b>.dynamic</b>
-
+<b><i>.dynamic</i></b>
 This section holds dynamic linking information. The section's attributes will include the SHF_ALLOC bit.
 Whether the SHF_WRITE bit is set is processor-specific. This section is of type SHT_DYNAMIC.
 
-<b>.dynstr</b>
+<b><i>.dynstr</i></b>
 
 This section holds strings needed for dynamic linking, most commonly the strings that represent the names
 associated with symbol table entries.  This section is of type SHT_STRTAB.  The attribute type used is
 SHF_ALLOC.
 
-<b>.gnu.version</b>
+<b><i>.gnu.version</i></b>
 
 This section holds the version symbol table, an array of ElfN_Half elements. This section is of type
 SHT_GNU_versym.  The attribute type used is SHF_ALLOC.
 
-<b>.got</b>
+<b><i>.got</i></b>
 
 This section holds the global offset table. This section is of type SHT_PROGBITS. The attributes are
 processor-specific.
 
-<b>.hash</b>
+<b><i>.hash</i></b>
 
 This section holds a symbol hash table. This section is of type SHT_HASH. The attribute used is SHF_ALLOC.
 
-<b>.init</b>
+<b><i>.init</i></b>
 
 This section holds executable instructions that contribute to the process initialization code.  When a program
 starts to run the system arranges to execute the code in this section before calling the main program entry
 point. This section is of type SHT_PROGBITS.  The attributes used are SHF_ALLOC and SHF_EXECINSTR.
 
-<b>.interp</b>
+<b><i>.interp</i></b>
 
 This section holds the pathname of a program interpreter. If the file has a loadable segment that includes the
 section, the section's attributes will include the SHF_ALLOC bit. Otherwise, that bit will be off. This
 section is of type SHT_PROGBITS.
 
-<b>.symtab</b>
+<b><i>.symtab</i></b>
 
 This section holds a symbol table.  If the file has a loadable segment that includes the symbol table, the
 section's attributes will include the SHF_ALLOC bit. Otherwise, the bit will be off. This section is of type
