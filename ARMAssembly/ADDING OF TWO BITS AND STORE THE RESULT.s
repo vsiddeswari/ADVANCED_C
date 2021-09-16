@@ -1,3 +1,6 @@
+
+/* ADDING OF TWO BITS AND STORING THEM */
+
 .global _start
 _start:
 	ADR R0,VALUE1
