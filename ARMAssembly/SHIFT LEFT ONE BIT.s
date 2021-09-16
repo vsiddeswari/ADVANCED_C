@@ -1,0 +1,11 @@
+
+/* LEFT SHIFTING  OF ONE TIME  */ 
+
+.global _start
+_start:
+	LDR R1,VALUE
+	MOV R1,R1,LSL #0X1
+	STR R1,RESULT
+	
+	VALUE: .WORD 0X4242
+	RESULT: .WORD 0X0

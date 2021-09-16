@@ -1,3 +1,7 @@
+
+
+/*FINDING SMALLEST NUMBER IN 3 THREE NUMBERS */
+
 .global _start
 _start:
 	LDR R0,VALUE1
