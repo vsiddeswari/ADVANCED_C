@@ -1,3 +1,6 @@
+
+/* LEFT SHIFTING  OF ONE TIME  */ 
+
 .global _start
 _start:
 	LDR R1,VALUE
