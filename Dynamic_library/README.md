@@ -7,6 +7,7 @@ When linker is dynamically linking with dynamic libraries, required function def
 Shared libraries serve a great advantage of sharing a single copy of library amoung multiple programs, hence they are called shared libraries
 
 <b>Steps to create dynamic libraries</b>
+
 step 1: Compile the source files using -fpic option
 gcc -c -fpic filename.c
 
