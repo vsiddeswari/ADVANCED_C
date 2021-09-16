@@ -1,3 +1,6 @@
+
+/* FINDING THE LARGER NUMBER */
+
 .global _start
 _start:
 	LDR R1,VALUE1
