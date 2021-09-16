@@ -1,3 +1,7 @@
+
+
+/* SUBTRACTION OF 32 BIT NUMBERS */
+
 .global _start
 _start:
 	
