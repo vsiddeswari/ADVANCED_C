@@ -1,0 +1,13 @@
+.global _start
+_start:
+	ADR R0,VALUE1
+	LDR R1,[R0]
+	ADD R0,R0,#0X4
+	LDR R2,[R0]
+	ADD R1,R1,R2
+	ADR R0,RESULT
+	STR R1,[R0]
+	
+	VALUE1: .WORD 0x123
+	VALUE2: .WORD 0x456
+	RESULT: .WORD 0
