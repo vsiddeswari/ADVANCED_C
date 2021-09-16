@@ -1,3 +1,6 @@
+
+/* ADDITION OF 2 32 BITS*/
+
 .global _start
 _start:
 	
