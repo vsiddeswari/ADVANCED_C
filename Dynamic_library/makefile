@@ -1,11 +1,11 @@
-CC = gcc
-CFLAGS = -c -fpic
+CC=gcc
+CFLAGS =-c -fpic
 
-all: sum main libabc.so
+all:sum  display mul libdynamic.so
 
-%.o : %.c
-       $(CC) $(CFLAGS)$^
+%.o:%.c
+	$(CC) $(CFLAGS) $^
 
 clean:
-	rm -rf *.o sum main
+	rm -rf *.o sum  mul display
 
