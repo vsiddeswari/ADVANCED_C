@@ -1,3 +1,5 @@
+/* ADDING OF ARRAY ELEMENTS */
+
 .global _start
 _start:
 	MOV R0,#05
