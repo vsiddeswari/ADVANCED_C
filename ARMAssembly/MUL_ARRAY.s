@@ -1,3 +1,6 @@
+
+/* MULTIPLICATION OF ARRAY ELEMENTS  */
+
 .global _start
 _start:
 	
