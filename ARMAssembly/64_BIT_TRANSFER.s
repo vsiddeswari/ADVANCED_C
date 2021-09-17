@@ -1,3 +1,6 @@
+
+/*transfer of 64 bit number */
+
 .global _start
 _start:
 	ADR R0,VALUE
