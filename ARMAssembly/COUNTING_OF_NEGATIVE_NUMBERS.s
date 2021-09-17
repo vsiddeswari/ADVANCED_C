@@ -1,3 +1,6 @@
+
+/* Counting of Negative numbers */
+
 .global _start
 _start:
 	LDR R0,=DATA1
