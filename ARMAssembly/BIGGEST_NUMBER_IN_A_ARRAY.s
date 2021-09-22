@@ -1,3 +1,5 @@
+
+/*  Biggest number in a array  */
 .global _start
 _start:
 	
