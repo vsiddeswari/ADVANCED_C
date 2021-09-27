@@ -20,4 +20,14 @@ step3: link the shared library to program
 
 gcc filename.c ./library.so -o filename
 
+<h1>LIBRARY_PATH</h1>
+By default the linker search for libraries in standard path.if our libraries present in non standard path. the environment variable LD_LIBRARY_PATH tells the linker to search for libraries in path initilized to LD_LIBRARY_PATH.
 
+<h3>step1:</h3> telling Gcc where to find the shared library
+gcc -L/home/vsiddheswari -o main main.c -ldisplay 
+
+<h3>step2:</h3> Making library available at runtime using LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/siddheswari
+
+<h3>step3:</h3> run the program
+./main

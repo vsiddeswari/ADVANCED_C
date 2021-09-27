@@ -6,10 +6,8 @@
 #include<stdlib.h>
 #include<string.h>
 
-
-
 int main(int argc, char **argv) 
-{
+ {
  if(argc < 2) {
 	 printf("usage: %s <ELF_FILE>\n", argv[0]);
          exit(1);
