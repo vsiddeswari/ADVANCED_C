@@ -207,4 +207,37 @@ For other non-addition/subtractions, C is normally left unchanged, but see the i
 <img src="https://github.com/vsiddeswari/ADVANCED_C/blob/a21b03cf877406c105b5843474e7ed7046bb3fbe/figures/condition%20flags.png">
 <p/>
 
+<h1>PIPELINE</h1>
+
+A pipeline is the mechanism a RISC processor uses to execute instructions. Using a pipeline speeds up execution by fetching the next instruction while other instructions are being decoded and executed. One way to view the pipeline is to think of it as an automobile assembly line, with each stage carrying out a particular task to manufacture the vehicle.
+<p align="center">
+<img src="https://github.com/vsiddeswari/ADVANCED_C/blob/450ee38cd5dff1aa4a6323cdbfa16b000714ad12/figures/pipeline1.jpg">
+</p>
+Fetch loads an instruction from memory.
+
+Decode identifies the instruction to be executed.
+
+Execute processes the instruction and writes the result back to a register.
+
+The pipeline using a simple example. It shows a sequence of three instructions being fetched, decoded, and executed by the processor. Each instruction takes a single cycle to complete after the pipeline is filled.
+
+<p align="center">
+<img src="https://github.com/vsiddeswari/ADVANCED_C/blob/450ee38cd5dff1aa4a6323cdbfa16b000714ad12/figures/pipeline2.jpg">
+</p>
+
+The pipeline design for each ARM family differs. For example, The ARM9 core increases the pipeline length to five stages. The ARM9 adds a memory and writeback stage, which allows the ARM9 to process on average 1.1 Dhrystone MIPS per MHz—an increase in instruction throughput by around 13% compared with an ARM7. The maximum core frequency attainable using an ARM9 is also higher.
+
+<p align="center">
+<img src="https://github.com/vsiddeswari/ADVANCED_C/blob/450ee38cd5dff1aa4a6323cdbfa16b000714ad12/figures/pipeline3.jpg">
+</p>
+
+The ARM10 increases the pipeline length still further by adding a sixth stage. The ARM10 can process on average 1.3 Dhrystone MIPS per MHz, about 34% more throughput than an ARM7 processor core, but again at a higher latency cost.
+
+<p align="center">
+<img src="https://github.com/vsiddeswari/ADVANCED_C/blob/450ee38cd5dff1aa4a6323cdbfa16b000714ad12/figures/pipeline4.jpg">
+</p>
+
+Even though the ARM9 and ARM10 pipelines are different, they still use the same pipeline executing characteristics as an ARM7. Code written for the ARM7 will execute on an ARM9 or ARM10.
+
+
 
