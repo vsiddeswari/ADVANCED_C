@@ -103,3 +103,108 @@ When a peripheral or device requires attention, it raises an interrupt to the pr
 The standard interrupt controller sends an interrupt signal to the processor core when an external device request servicing.
 
 Nested vector interrupt control (NVIC) is a method of prioritizing interrupts, improving the MCU’s performance and reducing interrupt latency. NVIC also provides implementation schemes for handling interrupts that occur when other interrupts are being executed or when the CPU is in the process of restoring its previous state and resuming its suspended process.
+
+<h1>REGISTERS</h1>
+
+In all ARM processors, the following registers are available and accessible in any processor mode:
+
+13 general-purpose registers R0-R12
+1 Stack Pointer (SP)
+1 Link Register (LR)
+1 Program Counter (PC)
+
+<h2>Stack Pointer</h2>
+
+Register R13 is used as a pointer to the active stack.
+
+In Thumb code, most instructions cannot access SP. The only instructions that can access SP are those designed to use SP as a stack pointer. The use of SP for any purpose other than as a stack pointer is deprecated. Note Using SP for any purpose other than as a stack pointer is likely to break the requirements of operating systems, debuggers, and other software systems, causing them to malfunction.
+
+<h2>Link Register</h2>
+
+Register R14 is used to store the return address from a subroutine. At other times, LR can be used for other purposes.
+
+When a BL or BLX instruction performs a subroutine call, LR is set to the subroutine return address. To perform a subroutine return, copy LR back to the program counter. This is typically done in one of two ways, after entering the subroutine with a BL or BLX instruction:
+
+• Return with a BX LR instruction.
+
+
+<h2>Program Counter</h2>
+The Program Counter (PC) is accessed as PC (or R15). It is incremented by the size of the instruction executed (which is always four bytes in ARM state). Branch instructions load the destination address into PC. You can also load the PC directly using data operation instructions. For example, to branch to the address in a general purpose register, use:
+
+
+   ex:- MOV PC,R0
+
+During execution, PC does not contain the address of the currently executing instruction. The address of the currently executing instruction is typically PC-8 for ARM, or PC-4 for Thumb.
+
+<h1>current program status register</h1>
+
+ARM v6/v7 maintains a status register called the CPSR (current program status register) that holds four status bits, negative (N), zero (Z), carry (C), and overflow (O). These bits can be used for conditional execution of subsequent instructions.
+
+<p align="center">
+<img src="https://github.com/vsiddeswari/ADVANCED_C/blob/a21b03cf877406c105b5843474e7ed7046bb3fbe/figures/cpsr.png">
+</p>
+
+
+The bits are set according to the most recently executed ALU instruction that includes the special “s” suffix. For example, the “adds” instruction will modify the status bits but the “add” instruction will not.
+
+Nearly all ARM instructions can include an optional condition code that determines if the instruction will be executed or skipped over. In other words, an instruction whose condition code is evaluated to false will not change the state of the processor, such as writing a result register to changing the PC.
+
+For example, the ldreq instruction will only execute if the Z-bit in the CPSR is set, which will be the case if the most recent computational instruction resulted in a result of zero.
+
+For example, the sequence:
+
+ subs r2,r2,#1
+
+ streq r3, [r0]
+
+…will decrement register r2 and store r3 only if the new value of r2 is zero.
+
+The compare (cmp) instruction can be used to set the status bits without any other side effect.
+
+For example:
+
+ cmp r2,r3
+
+ streq r4, [r0]
+
+…will store register r4 only if the contents of registers r2 and r3 are equal.
+
+When combining the condition code and the “s” suffix, the condition code comes first, for example,
+
+ addeqs r0,r0,r1
+
+
+<h2>PROCESSOR MODES</h2>
+The processor mode determines which registers are active and the access rights to the cpsr register itself. Each processor mode is either privileged or nonprivileged: A privileged mode allows full read-write access to the cpsr. Conversely, a nonprivileged mode only allows read access to the control field in the cpsr but still allows read-write access to the condition flags.
+
+There are seven processor modes in total: six privileged modes (abort, fast interrupt request, interrupt request, supervisor, system, and undefined) and one nonprivileged mode (user).
+
+<p align="center"
+<img src="https://github.com/vsiddeswari/ADVANCED_C/blob/a21b03cf877406c105b5843474e7ed7046bb3fbe/figures/processor%20modes.png">
+</p>
+
+The processor enters abort mode when there is a failed attempt to access memory. Fast interrupt request and interrupt request modes correspond to the two interrupt levels available on the ARM processor. Supervisor mode is the mode that the processor is in after reset and is generally the mode that an operating system kernel operates in. System mode is a special version of user mode that allows full read-write access to the cpsr. Undefined mode is used when the processor encounters an instruction that is undefined or not supported by the implementation. User mode is used for programs and applications.
+
+<h2>CONDITION FLAGS</h2>
+
+Most instructions update the condition flags only if the S suffix is specified. The instructions CMP, CMN, TEQ, and TST always update the flags.
+The condition flags are held in the APSR. They are set or cleared as follows:
+N
+Set to 1 when the result of the operation is negative, cleared to 0 otherwise.
+Z
+Set to 1 when the result of the operation is zero, cleared to 0 otherwise.
+C
+Set to 1 when the operation results in a carry, or when a subtraction results in no borrow, cleared to 0 otherwise.
+V
+Set to 1 when the operation causes overflow, cleared to 0 otherwise.
+C is set in one of the following ways:
+For an addition, including the comparison instruction CMN, C is set to 1 if the addition produced a carry (that is, an unsigned overflow), and to 0 otherwise.
+For a subtraction, including the comparison instruction CMP, C is set to 0 if the subtraction produced a borrow (that is, an unsigned underflow), and to 1 otherwise.
+For non-addition/subtractions that incorporate a shift operation, C is set to the last bit shifted out of the value by the shifter.
+For other non-addition/subtractions, C is normally left unchanged, but see the individual instruction descriptions for any special cases.
+
+<p align="center">
+<img src="https://github.com/vsiddeswari/ADVANCED_C/blob/a21b03cf877406c105b5843474e7ed7046bb3fbe/figures/condition%20flags.png">
+<p/>
+
+
