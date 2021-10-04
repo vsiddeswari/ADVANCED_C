@@ -239,5 +239,39 @@ The ARM10 increases the pipeline length still further by adding a sixth stage. T
 
 Even though the ARM9 and ARM10 pipelines are different, they still use the same pipeline executing characteristics as an ARM7. Code written for the ARM7 will execute on an ARM9 or ARM10.
 
+<h1>INTERRUPTS</h1>
+
+An interrupt vector table (IVT) is a data structure that associates a list of interrupt handlers with a list of interrupt requests in a table of interrupt vectors. Each entry of the interrupt vector table, called an interrupt vector, is the address of an interrupt handler.
+
+<p align="center">
+<img src="https://github.com/vsiddeswari/ADVANCED_C/blob/29e975b5190d0df6d1503171d45c6927a24cec39/figures/interrupt%20vector%20table.png">
+</p>
+
+<h2>Cache and Tightly coupled memory</h2>
+
+The purpose of the Tightly-Coupled Memory (TCM) is to provide low-latency memory that the processor can use without the unpredictability that is a feature of caches.
+
+You can use TCM to hold critical routines, such as interrupt handling routines or real-time tasks where the indeterminacy of a cache is highly undesirable. In addition you can use it to hold scratch pad data, data types whose locality properties are not well suited to caching, and critical data structures such as interrupt stacks.
+
+The size of each TCM can be selected independently from a minimum of 4KB to a maximum of 256KB, in powers of 2. You can configure the TCM in several ways:
+
+one TCM on the instruction side and one on the data side
+one TCM on the either the instruction side or the data side only
+no TCM.
+The TCM Status Register in CP15 c0 identifies the TCM options and TCM sizes that have been implemented, see c0, TCM Status Register.
+
+The Data TCM is implemented in parallel with the data cache and the Instruction TCM is implemented in parallel with the instruction cache. Each TCM has a single movable base address, specified in CP15 register c9, (see c9, Data TCM Region Register and c9, Instruction TCM Region Register).
+
+The size of each TCM can be different to the size of a cache way, but forms a single contiguous area of memory. The entire level one memory system is shown in Figure 7.1.
+
+You can disable each TCM to avoid an access being made to it. This gives a reduction in the power consumption. You can disable each TCM independently from the enabling of the associated cache, as determined by CP15 register c9.
+
+Disabling the TCM invalidates the base address, so there is no unexpected hit behavior for the TCM.
+
+The TCM region overrides memory type attributes of the MPU and all addresses within the TCM space are treated as Normal, Non-Shared memory.
+
+<p align="center">
+<img src="https://github.com/vsiddeswari/ADVANCED_C/blob/4a1eb59d953dd82658ed8181c6592adad69022c3/figures/cache%20and%20tcm.png">
+</p>
 
 
